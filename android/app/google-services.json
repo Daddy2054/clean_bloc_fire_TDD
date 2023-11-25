@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "59114723237",
+    "project_id": "clean-bloc-cdd18",
+    "storage_bucket": "clean-bloc-cdd18.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:59114723237:android:f49f6cca4a677063af7a4c",
+        "android_client_info": {
+          "package_name": "com.example.clean_bloc_firebase"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDoS6hJ7kS-NCymOrXJZSKR6qrUIqo7qjU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -7,7 +7,7 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
 
-import 'sign_in_use_case_test.mocks.dart';
+import 'sign_up_use_case_test.mocks.dart';
 
 @GenerateMocks([AuthRepository])
 void main() {

@@ -17,7 +17,7 @@ void main() {
   });
 
   test('should call signOut method on the AuthRepository', () async {
-    when(mockAuthRepository.signOut()).thenAnswer((_) async => null);
+    when(mockAuthRepository.signOut()).thenAnswer((_) async {});
 
     await signOutUseCase.call();
 

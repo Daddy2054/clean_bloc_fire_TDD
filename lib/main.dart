@@ -11,7 +11,7 @@ import 'src/features/auth/data/data_sources/auth_remote_data_source_firebase.dar
 import 'src/features/auth/data/repositories/auth_repository_impl.dart';
 import 'src/features/auth/domain/entities/auth_user.dart';
 import 'src/features/auth/domain/repositories/auth_repository.dart';
-import 'src/features/auth/presentation/screens/sign_up_screen.dart';
+import 'src/features/auth/presentation/screens/sign_in_screen.dart';
 
 typedef AppBuilder = Future<Widget> Function();
 
@@ -46,7 +46,7 @@ class App extends StatelessWidget {
   const App({
     super.key,
     required this.authRepository,
-    required this.authUser,
+    this.authUser,
   });
 
   final AuthRepository authRepository;
@@ -61,7 +61,7 @@ class App extends StatelessWidget {
       child: MaterialApp(
         title: 'Clean Architecture & TDD',
         theme: ThemeData.light(useMaterial3: true),
-        home: const SignUpScreen(),
+        home: const SignInScreen(),
       ),
     );
   }

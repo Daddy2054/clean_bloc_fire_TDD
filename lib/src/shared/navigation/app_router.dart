@@ -8,7 +8,7 @@ class AppRouter {
     routes: <GoRoute>[
       GoRoute(
         name: 'sign-in',
-        path: '/sign-in',
+        path: '/',
         pageBuilder: (context, state) => CustomTransitionPage<void>(
           key: state.pageKey,
           child: const SignInScreen(),

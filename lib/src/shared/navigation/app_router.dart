@@ -2,8 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
 import '../../features/auth/presentation/screens/sign_in_screen.dart';
+import '../app/blocs/app/app_bloc.dart';
 
 class AppRouter {
+  final AppBloc appBloc;
+  AppRouter(this.appBloc);
+
   late final GoRouter router = GoRouter(
     routes: <GoRoute>[
       GoRoute(

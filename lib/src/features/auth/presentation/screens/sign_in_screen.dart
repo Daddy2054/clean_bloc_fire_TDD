@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
 
 import '../../domain/repositories/auth_repository.dart';
 import '../../domain/use_cases/sign_in_use_case.dart';
@@ -115,6 +116,12 @@ class _SignInViewState extends State<SignInView> {
                           context.read<SignInCubit>().signIn();
                         },
                   child: const Text('Sign In'),
+                ),
+                const SizedBox(height: 8.0),
+                TextButton(
+                  key: const Key('go_to_signUp_continue_textButton'),
+                  onPressed: () => context.goNamed('sign-up'),
+                  child: const Text('Go to Sign Up'),
                 ),
               ],
             ),

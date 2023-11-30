@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
 
 import '../../features/auth/domain/entities/auth_user.dart';
 import '../../features/auth/domain/repositories/auth_repository.dart';
@@ -56,6 +57,56 @@ class AppView extends StatelessWidget {
       title: 'Clean Architecture & TDD',
       theme: ThemeData.light(useMaterial3: true),
       routerConfig: AppRouter(context.read<AppBloc>()).router,
+    );
+  }
+}
+
+class HomeScreen extends StatelessWidget {
+  const HomeScreen({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text('Home Screen'),
+        centerTitle: true,
+      ),
+      body: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          const Row(children: []),
+          ElevatedButton(
+            onPressed: () {
+              // context.goNamed('sign-up');
+              context.pushNamed('sign-up');
+              // Navigator.of(context).push(
+              //   MaterialPageRoute(
+              //     builder: (_) => const SignUpScreen(),
+              //   ),
+              // );
+            },
+            child: const Text('Sign Up'),
+          ),
+          ElevatedButton(
+            onPressed: () {
+              // context.goNamed('sign-in');
+              context.pushNamed('sign-in');
+              // Navigator.of(context).push(
+              //   MaterialPageRoute(
+              //     builder: (_) => const SignInScreen(),
+              //   ),
+              // );
+            },
+            child: const Text('Sign In'),
+          ),
+          ElevatedButton(
+            onPressed: () {
+              context.read<AppBloc>().add(const AppSignOutRequested());
+            },
+            child: const Text('Sign Out'),
+          ),
+        ],
+      ),
     );
   }
 }

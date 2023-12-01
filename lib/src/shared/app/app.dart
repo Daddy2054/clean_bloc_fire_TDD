@@ -7,6 +7,7 @@ import '../../features/auth/domain/repositories/auth_repository.dart';
 import '../../features/auth/domain/use_cases/sign_out_use_case.dart';
 import '../../features/auth/domain/use_cases/stream_auth_user_use_case.dart';
 import '../navigation/app_router.dart';
+import '../theme/app_theme.dart';
 import 'blocs/app/app_bloc.dart';
 
 class App extends StatelessWidget {
@@ -55,7 +56,7 @@ class AppView extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp.router(
       title: 'Clean Architecture & TDD',
-      theme: ThemeData.light(useMaterial3: true),
+      theme: AppTheme.theme,
       routerConfig: AppRouter(context.read<AppBloc>()).router,
     );
   }

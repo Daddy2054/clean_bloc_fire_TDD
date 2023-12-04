@@ -28,3 +28,9 @@ class PostRepositoryImpl implements PostRepository {
     return postModels.map((postModel) => postModel.toEntity()).toList();
   }
 }
+
+
+// You can make your implementation more flexible by passing the object mapper as a 
+// dependency to the repository. This way, you can easily switch between different 
+// data sources with different object mappers without having to change the implementation 
+// of the repository itself.

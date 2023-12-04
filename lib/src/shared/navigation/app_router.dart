@@ -5,7 +5,7 @@ import 'package:go_router/go_router.dart';
 
 import '../../features/auth/presentation/screens/sign_in_screen.dart';
 import '../../features/auth/presentation/screens/sign_up_screen.dart';
-import '../app/app.dart';
+import '../../features/feed/presentation/screens/feed_screen.dart';
 import '../app/blocs/app/app_bloc.dart';
 
 class AppRouter {
@@ -14,16 +14,16 @@ class AppRouter {
 
   late final GoRouter router = GoRouter(
     routes: <GoRoute>[
-      GoRoute(
-        name: 'home',
-        path: '/',
-        pageBuilder: (context, state) => CustomTransitionPage<void>(
-          key: state.pageKey,
-          child: const HomeScreen(),
-          transitionsBuilder: (context, animation, secondaryAnimation, child) =>
-              FadeTransition(opacity: animation, child: child),
-        ),
-      ),
+      // GoRoute(
+      //   name: 'home',
+      //   path: '/',
+      //   pageBuilder: (context, state) => CustomTransitionPage<void>(
+      //     key: state.pageKey,
+      //     child: const HomeScreen(),
+      //     transitionsBuilder: (context, animation, secondaryAnimation, child) =>
+      //         FadeTransition(opacity: animation, child: child),
+      //   ),
+      // ),
       GoRoute(
         name: 'sign-in',
         path: '/sign-in',
@@ -44,16 +44,16 @@ class AppRouter {
               FadeTransition(opacity: animation, child: child),
         ),
       ),
-      // GoRoute(
-      //   name: 'feed',
-      //   path: '/feed',
-      //   pageBuilder: (context, state) => CustomTransitionPage<void>(
-      //     key: state.pageKey,
-      //     child: const FeedScreen(),
-      //     transitionsBuilder: (context, animation, secondaryAnimation, child) =>
-      //         FadeTransition(opacity: animation, child: child),
-      //   ),
-      // ),
+      GoRoute(
+        name: 'feed',
+        path: '/',
+        pageBuilder: (context, state) => CustomTransitionPage<void>(
+          key: state.pageKey,
+          child: const FeedScreen(),
+          transitionsBuilder: (context, animation, secondaryAnimation, child) =>
+              FadeTransition(opacity: animation, child: child),
+        ),
+      ),
       // GoRoute(
       //   name: 'chats',
       //   path: '/chats',

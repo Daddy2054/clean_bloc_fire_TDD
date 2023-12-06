@@ -29,6 +29,21 @@ class RemoteDataSourceCloudFirestore implements RemoteDataSource {
     await ref.update(data);
   }
 
+
+  @override
+  Future<void> updateDocumentList({
+    required String collectionPath,
+    required String documentId,
+    required String field,
+    required dynamic value,
+  }) async {
+    cloud_firestore.DocumentReference<Map<String, dynamic>> ref;
+    ref = _firestore.collection(collectionPath).doc(documentId);
+    await ref.update({
+      field: cloud_firestore.FieldValue.arrayUnion([value])
+    });
+  }
+  
   @override
   Future<List<T>> getCollection<T>({
     required String collectionPath,

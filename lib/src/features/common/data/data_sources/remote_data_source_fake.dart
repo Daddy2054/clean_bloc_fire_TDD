@@ -20,6 +20,18 @@ class RemoteDataSourceFake implements RemoteDataSource {
     throw UnimplementedError();
   }
 
+
+  @override
+  Future<void> updateDocumentList({
+    required String collectionPath,
+    required String documentId,
+    required String field,
+    required value,
+  }) {
+    // TODO: implement updateDocumentList
+    throw UnimplementedError();
+  }
+  
   @override
   Future<T> getDocument<T>({
     required String collectionPath,

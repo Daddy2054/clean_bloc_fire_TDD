@@ -10,6 +10,12 @@ abstract class RemoteDataSource {
     required String documentId,
     required Map<String, dynamic> data,
   });
+    Future<void> updateDocumentList({
+    required String collectionPath,
+    required String documentId,
+    required String field,
+    required dynamic value,
+  });
   Future<List<T>> getCollection<T>({
     required String collectionPath,
     required ObjectMapper<T> objectMapper,

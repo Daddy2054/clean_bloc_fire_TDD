@@ -5,6 +5,7 @@ import '../../features/auth/domain/entities/auth_user.dart';
 import '../../features/auth/domain/repositories/auth_repository.dart';
 import '../../features/auth/domain/use_cases/sign_out_use_case.dart';
 import '../../features/auth/domain/use_cases/stream_auth_user_use_case.dart';
+import '../../features/chat/domain/repositories/chat_repository.dart';
 import '../../features/feed/domain/repositories/post_repository.dart';
 import '../navigation/app_router.dart';
 import '../theme/app_theme.dart';
@@ -14,14 +15,17 @@ class App extends StatelessWidget {
   const App({
     required AuthRepository authRepository,
     required PostRepository postRepository,
+    required ChatRepository chatRepository,
     required AuthUser authUser,
     super.key,
   })  : _authRepository = authRepository,
         _postRepository = postRepository,
+        _chatRepository = chatRepository,
         _authUser = authUser;
 
   final AuthRepository _authRepository;
   final PostRepository _postRepository;
+  final ChatRepository _chatRepository;
   final AuthUser _authUser;
 
   @override
@@ -30,6 +34,7 @@ class App extends StatelessWidget {
       providers: [
         RepositoryProvider.value(value: _authRepository),
         RepositoryProvider.value(value: _postRepository),
+        RepositoryProvider.value(value: _chatRepository),
       ],
       child: MultiBlocProvider(
         providers: [

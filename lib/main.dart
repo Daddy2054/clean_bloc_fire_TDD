@@ -9,6 +9,8 @@ import 'src/features/auth/data/data_sources/auth_remote_data_source.dart';
 import 'src/features/auth/data/data_sources/auth_remote_data_source_firebase.dart';
 import 'src/features/auth/data/repositories/auth_repository_impl.dart';
 import 'src/features/auth/domain/repositories/auth_repository.dart';
+import 'src/features/chat/data/repositories/chat_repository_impl.dart';
+import 'src/features/chat/domain/repositories/chat_repository.dart';
 import 'src/features/common/data/data_sources/remote_data_source.dart';
 import 'src/features/common/data/data_sources/remote_data_source_cloud_firestore.dart';
 import 'src/features/feed/data/repositories/post_repository_impl.dart';
@@ -44,9 +46,15 @@ void main() {
         remoteDataSource: remoteDataSource,
       );
 
+
+      ChatRepository chatRepository = ChatRepositoryImpl(
+        remoteDataSource: remoteDataSource,
+      );
+      
       return App(
         authRepository: authRepository,
         postRepository: postRepository,
+        chatRepository: chatRepository,
         authUser: await authRepository.authUser.first,
       );
     },

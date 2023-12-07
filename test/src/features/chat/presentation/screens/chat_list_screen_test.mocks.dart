@@ -5,7 +5,6 @@
 // ignore_for_file: no_leading_underscores_for_library_prefixes
 import 'dart:async' as _i4;
 
-import 'package:bloc/bloc.dart' as _i5;
 import 'package:clean_bloc_firebase/src/features/chat/domain/entities/chat.dart'
     as _i7;
 import 'package:clean_bloc_firebase/src/features/chat/domain/entities/message.dart'
@@ -16,6 +15,7 @@ import 'package:clean_bloc_firebase/src/features/chat/presentation/blocs/chat_li
     as _i2;
 import 'package:clean_bloc_firebase/src/shared/app/blocs/app/app_bloc.dart'
     as _i3;
+import 'package:flutter_bloc/flutter_bloc.dart' as _i5;
 import 'package:mockito/mockito.dart' as _i1;
 
 // ignore_for_file: type=lint

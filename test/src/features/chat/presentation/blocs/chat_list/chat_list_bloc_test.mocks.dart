@@ -6,11 +6,12 @@
 import 'dart:async' as _i4;
 
 import 'package:clean_bloc_firebase/src/features/chat/domain/entities/chat.dart'
-    as _i5;
+    as _i6;
 import 'package:clean_bloc_firebase/src/features/chat/domain/repositories/chat_repository.dart'
     as _i2;
 import 'package:clean_bloc_firebase/src/features/chat/domain/use_cases/stream_chats_use_case.dart'
     as _i3;
+import 'package:fpdart/fpdart.dart' as _i5;
 import 'package:mockito/mockito.dart' as _i1;
 
 // ignore_for_file: type=lint
@@ -56,12 +57,13 @@ class MockStreamChatsUseCase extends _i1.Mock
       ) as _i2.ChatRepository);
 
   @override
-  _i4.Stream<List<_i5.Chat>> call(_i3.StreamChatsParams? params) =>
+  _i4.Stream<_i5.Either<Exception, List<_i6.Chat>>> call(
+          _i3.StreamChatsParams? params) =>
       (super.noSuchMethod(
         Invocation.method(
           #call,
           [params],
         ),
-        returnValue: _i4.Stream<List<_i5.Chat>>.empty(),
-      ) as _i4.Stream<List<_i5.Chat>>);
+        returnValue: _i4.Stream<_i5.Either<Exception, List<_i6.Chat>>>.empty(),
+      ) as _i4.Stream<_i5.Either<Exception, List<_i6.Chat>>>);
 }

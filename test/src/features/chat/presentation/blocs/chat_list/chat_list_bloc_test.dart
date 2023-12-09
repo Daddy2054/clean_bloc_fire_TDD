@@ -3,6 +3,7 @@ import 'package:clean_bloc_firebase/src/features/chat/domain/entities/chat.dart'
 import 'package:clean_bloc_firebase/src/features/chat/domain/use_cases/stream_chats_use_case.dart';
 import 'package:clean_bloc_firebase/src/features/chat/presentation/blocs/chat_list/chat_list_bloc.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:fpdart/fpdart.dart';
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
 
@@ -28,8 +29,6 @@ void main() {
     ),
   ];
 
-  final tStreamChatsUseCaseParams = StreamChatsParams(userId: userId);
-
   late MockStreamChatsUseCase mockStreamChatsUseCase;
 
   setUp(() {
@@ -49,7 +48,7 @@ void main() {
     'list contains at least one chat object',
     setUp: () {
       when(mockStreamChatsUseCase.call(any)).thenAnswer(
-        (_) => Stream.value(tChats),
+        (_) => Stream.value(Right(tChats)),
       );
     },
     build: buildBloc,
@@ -79,8 +78,8 @@ void main() {
   blocTest<ChatListBloc, ChatListState>(
     'emits [error] when fetching posts throws an exception',
     setUp: () {
-      when(mockStreamChatsUseCase.call(tStreamChatsUseCaseParams))
-          .thenThrow(Exception());
+      when(mockStreamChatsUseCase.call(any))
+          .thenAnswer((_) => Stream.value(Left(Exception())));
     },
     build: buildBloc,
     act: (bloc) => bloc.add(const ChatListGetChats(userId: userId)),

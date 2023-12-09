@@ -3,6 +3,7 @@ import 'package:clean_bloc_firebase/src/features/feed/domain/entities/post.dart'
 import 'package:clean_bloc_firebase/src/features/feed/domain/use_cases/get_posts_use_case.dart';
 import 'package:clean_bloc_firebase/src/features/feed/presentation/blocs/feed/feed_bloc.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:fpdart/fpdart.dart';
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
 
@@ -30,8 +31,11 @@ void main() {
     blocTest<FeedBloc, FeedState>(
       'emits [loaded] when posts are successfully fetched and the post list contains the posts',
       setUp: () {
+        // when(mockGetPostsUseCase.call()).thenAnswer(
+        //   (_) async => [tPost, tPost],
+        // );
         when(mockGetPostsUseCase.call()).thenAnswer(
-          (_) async => [tPost, tPost],
+          (_) async => const Right([tPost, tPost]),
         );
       },
       build: buildBloc,
@@ -47,7 +51,10 @@ void main() {
     blocTest<FeedBloc, FeedState>(
       'emits [error] when fetching posts throws an exception',
       setUp: () {
-        when(mockGetPostsUseCase.call()).thenThrow(Exception());
+        // when(mockGetPostsUseCase.call()).thenThrow(Exception());
+        when(mockGetPostsUseCase.call()).thenAnswer(
+          (_) async => Left(Exception()),
+        );
       },
       build: buildBloc,
       act: (bloc) => bloc.add(FeedGetPosts()),

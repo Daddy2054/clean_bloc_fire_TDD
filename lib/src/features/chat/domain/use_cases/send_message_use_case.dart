@@ -1,3 +1,4 @@
+import 'package:fpdart/fpdart.dart';
 import 'package:uuid/uuid.dart';
 
 import '../entities/message.dart';
@@ -8,7 +9,7 @@ class SendMessageUseCase {
 
   SendMessageUseCase({required this.chatRepository});
 
-  Future<void> call(SendMessageParams params) async {
+  Future<Either<Exception, void>> call(SendMessageParams params) async {
     try {
       final message = Message(
         id: const Uuid().v4(),
@@ -18,15 +19,41 @@ class SendMessageUseCase {
         createdAt: DateTime.now(),
       );
 
-      return await chatRepository.addMessageToChat(
+      await chatRepository.addMessageToChat(
         chatId: params.chatId,
         message: message,
       );
+      return const Right(null);
     } catch (error) {
-      throw Exception(error);
+      return Left(Exception(error.toString()));
     }
   }
 }
+
+// class SendMessageUseCase {
+//   final ChatRepository chatRepository;
+
+//   SendMessageUseCase({required this.chatRepository});
+
+//   Future<void> call(SendMessageParams params) async {
+//     try {
+//       final message = Message(
+//         id: const Uuid().v4(),
+//         receiverId: params.receiverId,
+//         senderId: params.senderId,
+//         text: params.text,
+//         createdAt: DateTime.now(),
+//       );
+
+//       return await chatRepository.addMessageToChat(
+//         chatId: params.chatId,
+//         message: message,
+//       );
+//     } catch (error) {
+//       throw Exception(error);
+//     }
+//   }
+// }
 
 class SendMessageParams {
   final String chatId;

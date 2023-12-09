@@ -1,3 +1,4 @@
+import 'package:fpdart/fpdart.dart';
 import '../../../common/data/data_sources/remote_data_source.dart';
 import '../../domain/entities/post.dart';
 import '../../domain/repositories/post_repository.dart';
@@ -9,28 +10,55 @@ class PostRepositoryImpl implements PostRepository {
   const PostRepositoryImpl({required this.remoteDataSource});
 
   @override
-  Future<Post> getPost({required String postId}) async {
-    final postModel = await remoteDataSource.getDocument(
-      collectionPath: 'posts',
-      documentId: postId,
-      objectMapper: PostModel.fromCloudFirestore,
-    );
-    return postModel == null ? Post.empty : postModel.toEntity();
+  Future<Either<Exception, Post>> getPost({required String postId}) async {
+    try {
+      final postModel = await remoteDataSource.getDocument(
+        collectionPath: 'posts',
+        documentId: postId,
+        objectMapper: PostModel.fromCloudFirestore,
+      );
+      final postEntity = postModel == null ? Post.empty : postModel.toEntity();
+      return Right(postEntity);
+    } catch (error) {
+      return Left(Exception(error.toString()));
+    }
   }
+
+//   @override
+//   Future<Post> getPost({required String postId}) async {
+//     final postModel = await remoteDataSource.getDocument(
+//       collectionPath: 'posts',
+//       documentId: postId,
+//       objectMapper: PostModel.fromCloudFirestore,
+//       // objectMapper: PostModel.fromFakeDataSource,
+//     );
+//     return postModel == null ? Post.empty : postModel.toEntity();
+//   }
 
   @override
-  Future<List<Post>> getPosts() async {
-    final postModels = await remoteDataSource.getCollection(
-      collectionPath: 'posts',
-      objectMapper: PostModel.fromCloudFirestore,
-    );
+  Future<Either<Exception, List<Post>>> getPosts() async {
+    try {
+      final postModels = await remoteDataSource.getCollection(
+        collectionPath: 'posts',
+        objectMapper: PostModel.fromCloudFirestore,
+      );
 
-    return postModels.map((postModel) => postModel.toEntity()).toList();
+      final postEntities =
+          postModels.map((postModel) => postModel.toEntity()).toList();
+
+      return Right(postEntities);
+    } catch (error) {
+      return Left(Exception(error.toString()));
+    }
   }
+
+//   @override
+//   Future<List<Post>> getPosts() async {
+//     final postModels = await remoteDataSource.getCollection(
+//       collectionPath: 'posts',
+//       objectMapper: PostModel.fromCloudFirestore,
+//       // objectMapper: PostModel.fromFakeDataSource,
+//     );
+//     return postModels.map((postModel) => postModel.toEntity()).toList();
+//   }
 }
-
-
-// You can make your implementation more flexible by passing the object mapper as a 
-// dependency to the repository. This way, you can easily switch between different 
-// data sources with different object mappers without having to change the implementation 
-// of the repository itself.

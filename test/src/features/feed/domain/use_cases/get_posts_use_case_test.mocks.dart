@@ -3,13 +3,15 @@
 // Do not manually edit this file.
 
 // ignore_for_file: no_leading_underscores_for_library_prefixes
-import 'dart:async' as _i4;
+import 'dart:async' as _i3;
 
 import 'package:clean_bloc_firebase/src/features/feed/domain/entities/post.dart'
-    as _i2;
+    as _i5;
 import 'package:clean_bloc_firebase/src/features/feed/domain/repositories/post_repository.dart'
-    as _i3;
+    as _i2;
+import 'package:fpdart/fpdart.dart' as _i4;
 import 'package:mockito/mockito.dart' as _i1;
+import 'package:mockito/src/dummies.dart' as _i6;
 
 // ignore_for_file: type=lint
 // ignore_for_file: avoid_redundant_argument_values
@@ -24,33 +26,25 @@ import 'package:mockito/mockito.dart' as _i1;
 // ignore_for_file: camel_case_types
 // ignore_for_file: subtype_of_sealed_class
 
-class _FakePost_0 extends _i1.SmartFake implements _i2.Post {
-  _FakePost_0(
-    Object parent,
-    Invocation parentInvocation,
-  ) : super(
-          parent,
-          parentInvocation,
-        );
-}
-
 /// A class which mocks [PostRepository].
 ///
 /// See the documentation for Mockito's code generation for more information.
-class MockPostRepository extends _i1.Mock implements _i3.PostRepository {
+class MockPostRepository extends _i1.Mock implements _i2.PostRepository {
   MockPostRepository() {
     _i1.throwOnMissingStub(this);
   }
 
   @override
-  _i4.Future<_i2.Post> getPost({required String? postId}) =>
+  _i3.Future<_i4.Either<Exception, _i5.Post>> getPost(
+          {required String? postId}) =>
       (super.noSuchMethod(
         Invocation.method(
           #getPost,
           [],
           {#postId: postId},
         ),
-        returnValue: _i4.Future<_i2.Post>.value(_FakePost_0(
+        returnValue: _i3.Future<_i4.Either<Exception, _i5.Post>>.value(
+            _i6.dummyValue<_i4.Either<Exception, _i5.Post>>(
           this,
           Invocation.method(
             #getPost,
@@ -58,14 +52,22 @@ class MockPostRepository extends _i1.Mock implements _i3.PostRepository {
             {#postId: postId},
           ),
         )),
-      ) as _i4.Future<_i2.Post>);
+      ) as _i3.Future<_i4.Either<Exception, _i5.Post>>);
 
   @override
-  _i4.Future<List<_i2.Post>> getPosts() => (super.noSuchMethod(
+  _i3.Future<_i4.Either<Exception, List<_i5.Post>>> getPosts() =>
+      (super.noSuchMethod(
         Invocation.method(
           #getPosts,
           [],
         ),
-        returnValue: _i4.Future<List<_i2.Post>>.value(<_i2.Post>[]),
-      ) as _i4.Future<List<_i2.Post>>);
+        returnValue: _i3.Future<_i4.Either<Exception, List<_i5.Post>>>.value(
+            _i6.dummyValue<_i4.Either<Exception, List<_i5.Post>>>(
+          this,
+          Invocation.method(
+            #getPosts,
+            [],
+          ),
+        )),
+      ) as _i3.Future<_i4.Either<Exception, List<_i5.Post>>>);
 }

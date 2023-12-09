@@ -27,20 +27,41 @@ class ChatBloc extends Bloc<ChatEvent, ChatState> {
     ChatGetChat event,
     Emitter<ChatState> emit,
   ) async {
-    try {
-      await emit.forEach(
-        _streamChatUseCase(StreamChatParams(chatId: event.chatId)),
-        onData: (chat) {
-          return state.copyWith(
-            status: ChatStatus.loaded,
-            chat: chat,
-          );
-        },
-      );
-    } catch (error) {
-      emit(state.copyWith(status: ChatStatus.error));
-    }
+    await emit.forEach(
+      _streamChatUseCase(StreamChatParams(chatId: event.chatId)),
+      onData: (eitherChat) {
+        return eitherChat.fold(
+          (exception) {
+            return state.copyWith(status: ChatStatus.error);
+          },
+          (chat) {
+            return state.copyWith(
+              status: ChatStatus.loaded,
+              chat: chat,
+            );
+          },
+        );
+      },
+    );
   }
+  // void _onGetChat(
+  //   ChatGetChat event,
+  //   Emitter<ChatState> emit,
+  // ) async {
+  //   try {
+  //     await emit.forEach(
+  //       _streamChatUseCase(StreamChatParams(chatId: event.chatId)),
+  //       onData: (chat) {
+  //         return state.copyWith(
+  //           status: ChatStatus.loaded,
+  //           chat: chat,
+  //         );
+  //       },
+  //     );
+  //   } catch (error) {
+  //     emit(state.copyWith(status: ChatStatus.error));
+  //   }
+  // }
 
   void _onWriteMessage(
     ChatWriteMessage event,

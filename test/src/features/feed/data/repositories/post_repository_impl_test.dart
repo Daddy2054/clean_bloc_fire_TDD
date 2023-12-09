@@ -3,6 +3,7 @@ import 'package:clean_bloc_firebase/src/features/feed/data/models/post_model.dar
 import 'package:clean_bloc_firebase/src/features/feed/data/repositories/post_repository_impl.dart';
 import 'package:clean_bloc_firebase/src/features/feed/domain/entities/post.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:fpdart/fpdart.dart';
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
 
@@ -45,7 +46,8 @@ void main() {
       final result = await postRepository.getPost(postId: postId);
 
       // Assert
-      expect(result, Post.empty);
+      // expect(result, Post.empty);
+      expect(result, const Right(Post.empty));
 
       verify(mockRemoteDataSource.getDocument(
         collectionPath: 'posts',
@@ -68,7 +70,8 @@ void main() {
       final result = await postRepository.getPost(postId: tPostId);
 
       // Assert
-      expect(result, tPostModel.toEntity());
+      expect(result, equals(Right(tPostModel.toEntity())));
+      // expect(result, tPostModel.toEntity());
 
       verify(mockRemoteDataSource.getDocument(
         collectionPath: 'posts',
@@ -91,7 +94,9 @@ void main() {
       final result = await postRepository.getPosts();
 
       // Assert
-      expect(result, []);
+      // expect(result, []);
+      expect(result.isRight(), true); // Check if it's Right
+      expect(result.getOrElse((_) => []), []);
 
       verify(mockRemoteDataSource.getCollection(
         collectionPath: 'posts',
@@ -112,7 +117,9 @@ void main() {
       final result = await postRepository.getPosts();
 
       // Assert
-      expect(result, [tPostModel.toEntity()]);
+      // expect(result, [tPostModel.toEntity()]);
+      expect(result.isRight(), true); // Check if it's Right
+      expect(result.getOrElse((_) => []), [tPostModel.toEntity()]);
 
       verify(mockRemoteDataSource.getCollection(
         collectionPath: 'posts',

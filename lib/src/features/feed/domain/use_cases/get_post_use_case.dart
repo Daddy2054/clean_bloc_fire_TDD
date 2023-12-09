@@ -1,3 +1,5 @@
+import 'package:fpdart/fpdart.dart';
+
 import '../../../feed/domain/entities/post.dart';
 import '../repositories/post_repository.dart';
 
@@ -6,14 +8,24 @@ class GetPostUseCase {
 
   GetPostUseCase({required this.postRepository});
 
-  Future<Post> call(GetPostParams params) async {
-    try {
-      return await postRepository.getPost(postId: params.postId);
-    } catch (error) {
-      throw Exception(error);
-    }
+  Future<Either<Exception, Post>> call(GetPostParams params) async {
+    return await postRepository.getPost(postId: params.postId);
   }
 }
+
+// class GetPostUseCase {
+//   final PostRepository postRepository;
+
+//   GetPostUseCase({required this.postRepository});
+
+//   Future<Post> call(GetPostParams params) async {
+//     try {
+//       return await postRepository.getPost(postId: params.postId);
+//     } catch (error) {
+//       throw Exception(error);
+//     }
+//   }
+// }
 
 class GetPostParams {
   final String postId;

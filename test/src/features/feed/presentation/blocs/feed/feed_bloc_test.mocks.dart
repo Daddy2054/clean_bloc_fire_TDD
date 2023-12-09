@@ -6,12 +6,14 @@
 import 'dart:async' as _i4;
 
 import 'package:clean_bloc_firebase/src/features/feed/domain/entities/post.dart'
-    as _i5;
+    as _i6;
 import 'package:clean_bloc_firebase/src/features/feed/domain/repositories/post_repository.dart'
     as _i2;
 import 'package:clean_bloc_firebase/src/features/feed/domain/use_cases/get_posts_use_case.dart'
     as _i3;
+import 'package:fpdart/fpdart.dart' as _i5;
 import 'package:mockito/mockito.dart' as _i1;
+import 'package:mockito/src/dummies.dart' as _i7;
 
 // ignore_for_file: type=lint
 // ignore_for_file: avoid_redundant_argument_values
@@ -55,11 +57,19 @@ class MockGetPostsUseCase extends _i1.Mock implements _i3.GetPostsUseCase {
       ) as _i2.PostRepository);
 
   @override
-  _i4.Future<List<_i5.Post>> call() => (super.noSuchMethod(
+  _i4.Future<_i5.Either<Exception, List<_i6.Post>>> call() =>
+      (super.noSuchMethod(
         Invocation.method(
           #call,
           [],
         ),
-        returnValue: _i4.Future<List<_i5.Post>>.value(<_i5.Post>[]),
-      ) as _i4.Future<List<_i5.Post>>);
+        returnValue: _i4.Future<_i5.Either<Exception, List<_i6.Post>>>.value(
+            _i7.dummyValue<_i5.Either<Exception, List<_i6.Post>>>(
+          this,
+          Invocation.method(
+            #call,
+            [],
+          ),
+        )),
+      ) as _i4.Future<_i5.Either<Exception, List<_i6.Post>>>);
 }

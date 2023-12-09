@@ -3,16 +3,18 @@
 // Do not manually edit this file.
 
 // ignore_for_file: no_leading_underscores_for_library_prefixes
-import 'dart:async' as _i4;
+import 'dart:async' as _i3;
 
+import 'package:bloc/bloc.dart' as _i4;
 import 'package:clean_bloc_firebase/src/features/feed/domain/entities/post.dart'
-    as _i3;
+    as _i7;
 import 'package:clean_bloc_firebase/src/features/feed/domain/repositories/post_repository.dart'
-    as _i6;
+    as _i5;
 import 'package:clean_bloc_firebase/src/features/feed/presentation/blocs/feed/feed_bloc.dart'
     as _i2;
-import 'package:flutter_bloc/flutter_bloc.dart' as _i5;
+import 'package:fpdart/fpdart.dart' as _i6;
 import 'package:mockito/mockito.dart' as _i1;
+import 'package:mockito/src/dummies.dart' as _i8;
 
 // ignore_for_file: type=lint
 // ignore_for_file: avoid_redundant_argument_values
@@ -29,16 +31,6 @@ import 'package:mockito/mockito.dart' as _i1;
 
 class _FakeFeedState_0 extends _i1.SmartFake implements _i2.FeedState {
   _FakeFeedState_0(
-    Object parent,
-    Invocation parentInvocation,
-  ) : super(
-          parent,
-          parentInvocation,
-        );
-}
-
-class _FakePost_1 extends _i1.SmartFake implements _i3.Post {
-  _FakePost_1(
     Object parent,
     Invocation parentInvocation,
   ) : super(
@@ -65,10 +57,10 @@ class MockFeedBloc extends _i1.Mock implements _i2.FeedBloc {
       ) as _i2.FeedState);
 
   @override
-  _i4.Stream<_i2.FeedState> get stream => (super.noSuchMethod(
+  _i3.Stream<_i2.FeedState> get stream => (super.noSuchMethod(
         Invocation.getter(#stream),
-        returnValue: _i4.Stream<_i2.FeedState>.empty(),
-      ) as _i4.Stream<_i2.FeedState>);
+        returnValue: _i3.Stream<_i2.FeedState>.empty(),
+      ) as _i3.Stream<_i2.FeedState>);
 
   @override
   bool get isClosed => (super.noSuchMethod(
@@ -105,8 +97,8 @@ class MockFeedBloc extends _i1.Mock implements _i2.FeedBloc {
 
   @override
   void on<E extends _i2.FeedEvent>(
-    _i5.EventHandler<E, _i2.FeedState>? handler, {
-    _i5.EventTransformer<E>? transformer,
+    _i4.EventHandler<E, _i2.FeedState>? handler, {
+    _i4.EventTransformer<E>? transformer,
   }) =>
       super.noSuchMethod(
         Invocation.method(
@@ -118,7 +110,7 @@ class MockFeedBloc extends _i1.Mock implements _i2.FeedBloc {
       );
 
   @override
-  void onTransition(_i5.Transition<_i2.FeedEvent, _i2.FeedState>? transition) =>
+  void onTransition(_i4.Transition<_i2.FeedEvent, _i2.FeedState>? transition) =>
       super.noSuchMethod(
         Invocation.method(
           #onTransition,
@@ -128,17 +120,17 @@ class MockFeedBloc extends _i1.Mock implements _i2.FeedBloc {
       );
 
   @override
-  _i4.Future<void> close() => (super.noSuchMethod(
+  _i3.Future<void> close() => (super.noSuchMethod(
         Invocation.method(
           #close,
           [],
         ),
-        returnValue: _i4.Future<void>.value(),
-        returnValueForMissingStub: _i4.Future<void>.value(),
-      ) as _i4.Future<void>);
+        returnValue: _i3.Future<void>.value(),
+        returnValueForMissingStub: _i3.Future<void>.value(),
+      ) as _i3.Future<void>);
 
   @override
-  void onChange(_i5.Change<_i2.FeedState>? change) => super.noSuchMethod(
+  void onChange(_i4.Change<_i2.FeedState>? change) => super.noSuchMethod(
         Invocation.method(
           #onChange,
           [change],
@@ -182,20 +174,22 @@ class MockFeedBloc extends _i1.Mock implements _i2.FeedBloc {
 /// A class which mocks [PostRepository].
 ///
 /// See the documentation for Mockito's code generation for more information.
-class MockPostRepository extends _i1.Mock implements _i6.PostRepository {
+class MockPostRepository extends _i1.Mock implements _i5.PostRepository {
   MockPostRepository() {
     _i1.throwOnMissingStub(this);
   }
 
   @override
-  _i4.Future<_i3.Post> getPost({required String? postId}) =>
+  _i3.Future<_i6.Either<Exception, _i7.Post>> getPost(
+          {required String? postId}) =>
       (super.noSuchMethod(
         Invocation.method(
           #getPost,
           [],
           {#postId: postId},
         ),
-        returnValue: _i4.Future<_i3.Post>.value(_FakePost_1(
+        returnValue: _i3.Future<_i6.Either<Exception, _i7.Post>>.value(
+            _i8.dummyValue<_i6.Either<Exception, _i7.Post>>(
           this,
           Invocation.method(
             #getPost,
@@ -203,14 +197,22 @@ class MockPostRepository extends _i1.Mock implements _i6.PostRepository {
             {#postId: postId},
           ),
         )),
-      ) as _i4.Future<_i3.Post>);
+      ) as _i3.Future<_i6.Either<Exception, _i7.Post>>);
 
   @override
-  _i4.Future<List<_i3.Post>> getPosts() => (super.noSuchMethod(
+  _i3.Future<_i6.Either<Exception, List<_i7.Post>>> getPosts() =>
+      (super.noSuchMethod(
         Invocation.method(
           #getPosts,
           [],
         ),
-        returnValue: _i4.Future<List<_i3.Post>>.value(<_i3.Post>[]),
-      ) as _i4.Future<List<_i3.Post>>);
+        returnValue: _i3.Future<_i6.Either<Exception, List<_i7.Post>>>.value(
+            _i8.dummyValue<_i6.Either<Exception, List<_i7.Post>>>(
+          this,
+          Invocation.method(
+            #getPosts,
+            [],
+          ),
+        )),
+      ) as _i3.Future<_i6.Either<Exception, List<_i7.Post>>>);
 }

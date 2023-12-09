@@ -6,14 +6,16 @@
 import 'dart:async' as _i4;
 
 import 'package:clean_bloc_firebase/src/features/chat/domain/entities/chat.dart'
-    as _i5;
+    as _i6;
 import 'package:clean_bloc_firebase/src/features/chat/domain/repositories/chat_repository.dart'
     as _i2;
 import 'package:clean_bloc_firebase/src/features/chat/domain/use_cases/send_message_use_case.dart'
-    as _i6;
+    as _i7;
 import 'package:clean_bloc_firebase/src/features/chat/domain/use_cases/stream_chat_use_case.dart'
     as _i3;
+import 'package:fpdart/fpdart.dart' as _i5;
 import 'package:mockito/mockito.dart' as _i1;
+import 'package:mockito/src/dummies.dart' as _i8;
 
 // ignore_for_file: type=lint
 // ignore_for_file: avoid_redundant_argument_values
@@ -57,21 +59,22 @@ class MockStreamChatUseCase extends _i1.Mock implements _i3.StreamChatUseCase {
       ) as _i2.ChatRepository);
 
   @override
-  _i4.Stream<_i5.Chat> call(_i3.StreamChatParams? params) =>
+  _i4.Stream<_i5.Either<Exception, _i6.Chat>> call(
+          _i3.StreamChatParams? params) =>
       (super.noSuchMethod(
         Invocation.method(
           #call,
           [params],
         ),
-        returnValue: _i4.Stream<_i5.Chat>.empty(),
-      ) as _i4.Stream<_i5.Chat>);
+        returnValue: _i4.Stream<_i5.Either<Exception, _i6.Chat>>.empty(),
+      ) as _i4.Stream<_i5.Either<Exception, _i6.Chat>>);
 }
 
 /// A class which mocks [SendMessageUseCase].
 ///
 /// See the documentation for Mockito's code generation for more information.
 class MockSendMessageUseCase extends _i1.Mock
-    implements _i6.SendMessageUseCase {
+    implements _i7.SendMessageUseCase {
   MockSendMessageUseCase() {
     _i1.throwOnMissingStub(this);
   }
@@ -86,12 +89,19 @@ class MockSendMessageUseCase extends _i1.Mock
       ) as _i2.ChatRepository);
 
   @override
-  _i4.Future<void> call(_i6.SendMessageParams? params) => (super.noSuchMethod(
+  _i4.Future<_i5.Either<Exception, void>> call(_i7.SendMessageParams? params) =>
+      (super.noSuchMethod(
         Invocation.method(
           #call,
           [params],
         ),
-        returnValue: _i4.Future<void>.value(),
-        returnValueForMissingStub: _i4.Future<void>.value(),
-      ) as _i4.Future<void>);
+        returnValue: _i4.Future<_i5.Either<Exception, void>>.value(
+            _i8.dummyValue<_i5.Either<Exception, void>>(
+          this,
+          Invocation.method(
+            #call,
+            [params],
+          ),
+        )),
+      ) as _i4.Future<_i5.Either<Exception, void>>);
 }

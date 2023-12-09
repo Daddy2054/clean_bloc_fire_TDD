@@ -6,12 +6,14 @@
 import 'dart:async' as _i3;
 
 import 'package:clean_bloc_firebase/src/features/chat/domain/entities/chat.dart'
-    as _i4;
-import 'package:clean_bloc_firebase/src/features/chat/domain/entities/message.dart'
     as _i5;
+import 'package:clean_bloc_firebase/src/features/chat/domain/entities/message.dart'
+    as _i6;
 import 'package:clean_bloc_firebase/src/features/chat/domain/repositories/chat_repository.dart'
     as _i2;
+import 'package:fpdart/fpdart.dart' as _i4;
 import 'package:mockito/mockito.dart' as _i1;
+import 'package:mockito/src/dummies.dart' as _i7;
 
 // ignore_for_file: type=lint
 // ignore_for_file: avoid_redundant_argument_values
@@ -35,31 +37,33 @@ class MockChatRepository extends _i1.Mock implements _i2.ChatRepository {
   }
 
   @override
-  _i3.Stream<List<_i4.Chat>> streamChats({required String? userId}) =>
+  _i3.Stream<_i4.Either<Exception, List<_i5.Chat>>> streamChats(
+          {required String? userId}) =>
       (super.noSuchMethod(
         Invocation.method(
           #streamChats,
           [],
           {#userId: userId},
         ),
-        returnValue: _i3.Stream<List<_i4.Chat>>.empty(),
-      ) as _i3.Stream<List<_i4.Chat>>);
+        returnValue: _i3.Stream<_i4.Either<Exception, List<_i5.Chat>>>.empty(),
+      ) as _i3.Stream<_i4.Either<Exception, List<_i5.Chat>>>);
 
   @override
-  _i3.Stream<_i4.Chat> streamChat({required String? chatId}) =>
+  _i3.Stream<_i4.Either<Exception, _i5.Chat>> streamChat(
+          {required String? chatId}) =>
       (super.noSuchMethod(
         Invocation.method(
           #streamChat,
           [],
           {#chatId: chatId},
         ),
-        returnValue: _i3.Stream<_i4.Chat>.empty(),
-      ) as _i3.Stream<_i4.Chat>);
+        returnValue: _i3.Stream<_i4.Either<Exception, _i5.Chat>>.empty(),
+      ) as _i3.Stream<_i4.Either<Exception, _i5.Chat>>);
 
   @override
-  _i3.Future<void> addMessageToChat({
+  _i3.Future<_i4.Either<Exception, void>> addMessageToChat({
     required String? chatId,
-    required _i5.Message? message,
+    required _i6.Message? message,
   }) =>
       (super.noSuchMethod(
         Invocation.method(
@@ -70,7 +74,17 @@ class MockChatRepository extends _i1.Mock implements _i2.ChatRepository {
             #message: message,
           },
         ),
-        returnValue: _i3.Future<void>.value(),
-        returnValueForMissingStub: _i3.Future<void>.value(),
-      ) as _i3.Future<void>);
+        returnValue: _i3.Future<_i4.Either<Exception, void>>.value(
+            _i7.dummyValue<_i4.Either<Exception, void>>(
+          this,
+          Invocation.method(
+            #addMessageToChat,
+            [],
+            {
+              #chatId: chatId,
+              #message: message,
+            },
+          ),
+        )),
+      ) as _i3.Future<_i4.Either<Exception, void>>);
 }

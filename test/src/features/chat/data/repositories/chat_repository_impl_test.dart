@@ -5,6 +5,7 @@ import 'package:clean_bloc_firebase/src/features/chat/domain/entities/chat.dart'
 import 'package:clean_bloc_firebase/src/features/chat/domain/entities/message.dart';
 import 'package:clean_bloc_firebase/src/features/common/data/data_sources/remote_data_source.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:fpdart/fpdart.dart';
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
 
@@ -29,7 +30,7 @@ void main() {
   final tChatModel = ChatModel(
     id: tChatId,
     userIds: tUserIds,
-    messages: const [],
+    messages: [],
     lastMessage: null,
     createdAt: createdAt,
   );
@@ -57,7 +58,8 @@ void main() {
       final result = await chatRepository.streamChat(chatId: tChatId).first;
 
       // Assert
-      expect(result, Chat.empty);
+      // expect(result, Chat.empty);
+      expect(result, const Right(Chat.empty));
 
       verify(
         mockRemoteDataSource.streamDocument(
@@ -81,7 +83,8 @@ void main() {
       final result = await chatRepository.streamChat(chatId: tChatId).first;
 
       // Assert
-      expect(result, tChatModel.toEntity());
+      // expect(result, tChatModel.toEntity());
+      expect(result, Right(tChatModel.toEntity()));
 
       verify(
         mockRemoteDataSource.streamDocument(
@@ -108,7 +111,9 @@ void main() {
           await chatRepository.streamChats(userId: tUserIds[0]).first;
 
       // Assert
-      expect(result, []);
+      // expect(result, []);
+      expect(result, isA<Right>());
+      expect(result.getOrElse((_) => []), []);
 
       verify(
         mockRemoteDataSource.streamCollection(
@@ -137,7 +142,10 @@ void main() {
           await chatRepository.streamChats(userId: tUserIds[0]).first;
 
       // Assert
-      expect(result, [tChatModel.toEntity(), tChatModel.toEntity()]);
+      // expect(result, [tChatModel.toEntity(), tChatModel.toEntity()]);
+      expect(result, isA<Right>());
+      expect(result.getOrElse((_) => []),
+          [tChatModel.toEntity(), tChatModel.toEntity()]);
 
       verify(
         mockRemoteDataSource.streamCollection(

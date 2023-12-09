@@ -4,6 +4,7 @@ import 'package:clean_bloc_firebase/src/features/chat/domain/use_cases/send_mess
 import 'package:clean_bloc_firebase/src/features/chat/domain/use_cases/stream_chat_use_case.dart';
 import 'package:clean_bloc_firebase/src/features/chat/presentation/blocs/chat/chat_bloc.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:fpdart/fpdart.dart';
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
 
@@ -38,8 +39,11 @@ void main() {
   blocTest<ChatBloc, ChatState>(
     'emits [loaded] when chat is successfully fetched',
     setUp: () {
+      // when(mockStreamChatUseCase.call(any)).thenAnswer(
+      //   (_) => Stream.value(tChat),
+      // );
       when(mockStreamChatUseCase.call(any)).thenAnswer(
-        (_) => Stream.value(tChat),
+        (_) => Stream.value(Right(tChat)),
       );
     },
     build: buildBloc,
@@ -67,7 +71,8 @@ void main() {
     'emits state with empty text and calls SendMessageUseCase when sending a message',
     setUp: () {
       // Mock the sendMessageUseCase to successfully complete
-      when(mockSendMessageUseCase.call(any)).thenAnswer((_) async {});
+      when(mockSendMessageUseCase.call(any))
+          .thenAnswer((_) async => const Right(null));
     },
     seed: () => ChatState(
       chat: Chat(
@@ -95,7 +100,9 @@ void main() {
   blocTest<ChatBloc, ChatState>(
     'emits [error] when fetching chat throws an exception',
     setUp: () {
-      when(mockStreamChatUseCase.call(any)).thenThrow(Exception());
+      when(mockStreamChatUseCase.call(any)).thenAnswer(
+        (_) => Stream.value(Left(Exception())),
+      );
     },
     build: buildBloc,
     act: (bloc) => bloc.add(const ChatGetChat(chatId: 'someChatId')),

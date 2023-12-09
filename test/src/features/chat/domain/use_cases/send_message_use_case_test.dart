@@ -2,6 +2,7 @@ import 'package:clean_bloc_firebase/src/features/chat/domain/entities/message.da
 import 'package:clean_bloc_firebase/src/features/chat/domain/repositories/chat_repository.dart';
 import 'package:clean_bloc_firebase/src/features/chat/domain/use_cases/send_message_use_case.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:fpdart/fpdart.dart';
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
 
@@ -28,7 +29,7 @@ void main() {
     // Arrange
     when(mockChatRepository.addMessageToChat(
             chatId: anyNamed('chatId'), message: anyNamed('message')))
-        .thenAnswer((_) async {});
+        .thenAnswer((_) async => const Right(null));
 
     // Act
     await sendMessageUseCase.call(tSendMessageParams);

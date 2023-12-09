@@ -20,24 +20,54 @@ class ChatListBloc extends Bloc<ChatListEvent, ChatListState> {
     ChatListGetChats event,
     Emitter<ChatListState> emit,
   ) async {
-    try {
-      await emit.forEach(
-        _streamChatsUseCase(StreamChatsParams(userId: event.userId)),
-        onData: (chats) {
-          chats.sort((a, b) {
-            final aDate = a.lastMessage?.createdAt ?? a.createdAt;
-            final bDate = b.lastMessage?.createdAt ?? b.createdAt;
-            return bDate!.compareTo(aDate!);
-          });
+    await emit.forEach(
+      _streamChatsUseCase(StreamChatsParams(userId: event.userId)),
+      onData: (eitherChats) {
+        return eitherChats.fold(
+          (exception) {
+            // Handle the exception case
+            return state.copyWith(status: ChatListStatus.error);
+          },
+          (chats) {
+            // Handle the success case
+            chats.sort((a, b) {
+              final aDate = a.lastMessage?.createdAt ?? a.createdAt;
+              final bDate = b.lastMessage?.createdAt ?? b.createdAt;
+              return bDate!.compareTo(aDate!);
+            });
 
-          return state.copyWith(
-            status: ChatListStatus.loaded,
-            chats: chats,
-          );
-        },
-      );
-    } catch (error) {
-      emit(state.copyWith(status: ChatListStatus.error));
-    }
+            return state.copyWith(
+              status: ChatListStatus.loaded,
+              chats: chats,
+            );
+          },
+        );
+      },
+    );
   }
+
+  // void _onGetChats(
+  //   ChatListGetChats event,
+  //   Emitter<ChatListState> emit,
+  // ) async {
+  //   try {
+  //     await emit.forEach(
+  //       _streamChatsUseCase(StreamChatsParams(userId: event.userId)),
+  //       onData: (chats) {
+  //         chats.sort((a, b) {
+  //           final aDate = a.lastMessage?.createdAt ?? a.createdAt;
+  //           final bDate = b.lastMessage?.createdAt ?? b.createdAt;
+  //           return bDate!.compareTo(aDate!);
+  //         });
+
+  //         return state.copyWith(
+  //           status: ChatListStatus.loaded,
+  //           chats: chats,
+  //         );
+  //       },
+  //     );
+  //   } catch (error) {
+  //     emit(state.copyWith(status: ChatListStatus.error));
+  //   }
+  // }
 }

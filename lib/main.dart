@@ -10,6 +10,8 @@ import 'src/features/auth/data/data_sources/auth_remote_data_source.dart';
 import 'src/features/auth/data/data_sources/auth_remote_data_source_firebase.dart';
 import 'src/features/auth/data/repositories/auth_repository_impl.dart';
 import 'src/features/auth/domain/repositories/auth_repository.dart';
+import 'src/features/chat/data/models/chat_model.dart';
+import 'src/features/chat/data/models/message_model.dart';
 import 'src/features/chat/data/repositories/chat_repository_impl.dart';
 import 'src/features/chat/domain/repositories/chat_repository.dart';
 import 'src/features/common/data/data_sources/local_data_source.dart';
@@ -25,7 +27,10 @@ typedef AppBuilder = Future<Widget> Function();
 Future<void> bootstrap(AppBuilder builder) async {
   WidgetsFlutterBinding.ensureInitialized();
   await Hive.initFlutter();
-  Hive.registerAdapter(PostModelAdapter());
+  Hive
+    ..registerAdapter(PostModelAdapter())
+    ..registerAdapter(MessageModelAdapter())
+    ..registerAdapter(ChatModelAdapter());
 
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
   runApp(await builder());
@@ -38,7 +43,7 @@ void main() {
       AuthRemoteDataSource authRemoteDataSource =
           AuthRemoteDataSourceFirebase();
 
-    // RemoteDataSource remoteDataSource = RemoteDataSourceFake();
+      // RemoteDataSource remoteDataSource = RemoteDataSourceFake();
       RemoteDataSource remoteDataSource = RemoteDataSourceCloudFirestore();
 
       LocalDataSource<PostModel> postLocalDataSource =
@@ -46,23 +51,26 @@ void main() {
         boxName: 'posts',
         boxType: PostModel,
       );
-      
+      LocalDataSource<ChatModel> chatLocalDataSource =
+          LocalDataSource<ChatModel>(
+        boxName: 'chats',
+        boxType: ChatModel,
+      );
       AuthRepository authRepository = AuthRepositoryImpl(
         localDataSource: authLocalDataSource,
         remoteDataSource: authRemoteDataSource,
       );
 
-
       PostRepository postRepository = PostRepositoryImpl(
         remoteDataSource: remoteDataSource,
-                localDataSource: postLocalDataSource,
+        localDataSource: postLocalDataSource,
       );
-
 
       ChatRepository chatRepository = ChatRepositoryImpl(
         remoteDataSource: remoteDataSource,
+        localDataSource: chatLocalDataSource,
       );
-      
+
       return App(
         authRepository: authRepository,
         postRepository: postRepository,

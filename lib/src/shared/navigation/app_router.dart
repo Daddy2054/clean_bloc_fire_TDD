@@ -38,7 +38,7 @@ class AppRouter {
       ),
       GoRoute(
         name: 'feed',
-        path: '/',
+        path: '/feed',
         pageBuilder: (context, state) => CustomTransitionPage<void>(
           key: state.pageKey,
           child: const FeedScreen(),
@@ -48,7 +48,7 @@ class AppRouter {
       ),
       GoRoute(
         name: 'chats',
-        path: '/chats',
+        path: '/',
         pageBuilder: (context, state) => CustomTransitionPage<void>(
           key: state.pageKey,
           child: const ChatListScreen(),

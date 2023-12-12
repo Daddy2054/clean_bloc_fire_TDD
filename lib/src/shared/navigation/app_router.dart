@@ -6,6 +6,7 @@ import 'package:go_router/go_router.dart';
 import '../../features/auth/presentation/screens/sign_in_screen.dart';
 import '../../features/auth/presentation/screens/sign_up_screen.dart';
 import '../../features/chat/presentation/screens/chat_list_screen.dart';
+import '../../features/chat/presentation/screens/chat_screen.dart';
 import '../../features/feed/presentation/screens/feed_screen.dart';
 import '../app/blocs/app/app_bloc.dart';
 
@@ -15,16 +16,6 @@ class AppRouter {
 
   late final GoRouter router = GoRouter(
     routes: <GoRoute>[
-      // GoRoute(
-      //   name: 'home',
-      //   path: '/',
-      //   pageBuilder: (context, state) => CustomTransitionPage<void>(
-      //     key: state.pageKey,
-      //     child: const HomeScreen(),
-      //     transitionsBuilder: (context, animation, secondaryAnimation, child) =>
-      //         FadeTransition(opacity: animation, child: child),
-      //   ),
-      // ),
       GoRoute(
         name: 'sign-in',
         path: '/sign-in',
@@ -47,7 +38,7 @@ class AppRouter {
       ),
       GoRoute(
         name: 'feed',
-        path: '/feed',
+        path: '/',
         pageBuilder: (context, state) => CustomTransitionPage<void>(
           key: state.pageKey,
           child: const FeedScreen(),
@@ -57,28 +48,28 @@ class AppRouter {
       ),
       GoRoute(
         name: 'chats',
-        path: '/',
+        path: '/chats',
         pageBuilder: (context, state) => CustomTransitionPage<void>(
           key: state.pageKey,
           child: const ChatListScreen(),
           transitionsBuilder: (context, animation, secondaryAnimation, child) =>
               FadeTransition(opacity: animation, child: child),
         ),
-        //   routes: [
-        //     GoRoute(
-        //       name: 'chat',
-        //       path: ':chatId',
-        //       pageBuilder: (context, state) => CustomTransitionPage<void>(
-        //         key: state.pageKey,
-        //         child: ChatScreen(
-        //           chatId: state.pathParameters['chatId']!,
-        //         ),
-        //         transitionsBuilder:
-        //             (context, animation, secondaryAnimation, child) =>
-        //                 FadeTransition(opacity: animation, child: child),
-        //       ),
-        //     ),
-        //   ],
+        routes: [
+          GoRoute(
+            name: 'chat',
+            path: ':chatId',
+            pageBuilder: (context, state) => CustomTransitionPage<void>(
+              key: state.pageKey,
+              child: ChatScreen(
+                chatId: state.pathParameters['chatId']!,
+              ),
+              transitionsBuilder:
+                  (context, animation, secondaryAnimation, child) =>
+                      FadeTransition(opacity: animation, child: child),
+            ),
+          ),
+        ],
       ),
     ],
     redirect: (BuildContext context, GoRouterState state) {

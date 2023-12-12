@@ -33,7 +33,7 @@ abstract class RemoteDataSource {
   Stream<List<T>> streamCollection<T>({
     required String collectionPath,
     required ObjectMapper<T> objectMapper,
-    required String field,
+    String? field,
     dynamic isEqualToValue,
     dynamic arrayContainsValue,
   });

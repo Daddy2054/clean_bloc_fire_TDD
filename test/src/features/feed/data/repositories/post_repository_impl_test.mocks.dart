@@ -159,7 +159,7 @@ class MockRemoteDataSource extends _i1.Mock implements _i2.RemoteDataSource {
   _i3.Stream<List<T>> streamCollection<T>({
     required String? collectionPath,
     required _i2.ObjectMapper<T>? objectMapper,
-    required String? field,
+    String? field,
     dynamic isEqualToValue,
     dynamic arrayContainsValue,
   }) =>

@@ -30,7 +30,7 @@ void main() {
   final tChatModel = ChatModel(
     id: tChatId,
     userIds: tUserIds,
-    messages: [],
+    messages: const [],
     lastMessage: null,
     createdAt: createdAt,
   );
